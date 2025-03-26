@@ -1,4 +1,4 @@
 name = "iptv-website"
 type = "javascript"
-account_id = "your_cloudflare_account_id"
+account_id = "85a8801a908bf662812ed59e9e09b249"
 workers_dev = true
