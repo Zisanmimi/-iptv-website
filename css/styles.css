@@ -37,33 +37,37 @@ input, select, button {
 #channelList {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between; /* Changed from center to space-between */
     padding: 20px;
     gap: 10px;
-    box-sizing: border-box; /* Include padding in the total width */
+    box-sizing: border-box;
+    width: 100%; /* Ensure container takes up full width */
+    max-width: 100%; /* Prevent stretching */
 }
 
 .channel {
-    width: calc(33.33% - 20px); /* Display 3 items per row */
+    width: calc(33.33% - 20px); /* 3 items per row */
     background: white;
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    box-sizing: border-box; /* Ensure padding is included in width */
+    box-sizing: border-box;
+    /* Set a minimum height to prevent empty items collapsing */
+    min-height: 150px;
 }
 
 .channel img {
     width: 100%;
     height: auto;
-    max-width: 100%; /* Ensure images don't overflow */
+    max-width: 100%;
 }
 
 .channel p {
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap; /* Prevent text from overflowing */
+    white-space: nowrap;
 }
 
 .dark-mode .channel {
@@ -74,12 +78,12 @@ input, select, button {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .channel {
-        width: calc(50% - 20px); /* Display 2 items per row on medium screens */
+        width: calc(50% - 20px); /* 2 items per row on medium screens */
     }
 }
 
 @media (max-width: 480px) {
     .channel {
-        width: 100%; /* Display 1 item per row on small screens */
+        width: 100%; /* 1 item per row on small screens */
     }
 }
