@@ -72,7 +72,7 @@ input, select, button {
 /* For small screens (Mobile view) */
 @media (max-width: 768px) {
     #channelList {
-        justify-content: center; /* Center align items on mobile */
+        justify-content: flex-start; /* Center align items on mobile */
     }
     
     .channel {
