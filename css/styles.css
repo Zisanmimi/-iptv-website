@@ -52,7 +52,7 @@ input, select, button {
 }
 
 .channel img {
-    width: 100px;
+    width: auto;
     height: auto;
 }
 
