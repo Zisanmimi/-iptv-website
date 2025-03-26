@@ -7,16 +7,24 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>IPTV Channel List</h1>
-    <input type="text" id="search" placeholder="Search channels...">
-    <select id="category">
-        <option value="All">All</option>
-        <option value="General">General</option>
-        <option value="Entertainment">Entertainment</option>
-    </select>
-    <button id="dark-mode-toggle">Toggle Dark Mode</button>
+    <header>
+        <img src="assets/images/logo.png" alt="IPTV Logo" class="logo">
+        <h1>IPTV Channel List</h1>
+    </header>
     
-    <div id="channel-list"></div>
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="Search channels...">
+        <select id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="General">General</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Sports">Sports</option>
+            <option value="News">News</option>
+        </select>
+        <button id="darkModeToggle">Toggle Dark Mode</button>
+    </div>
+
+    <div id="channelList"></div>
 
     <script src="js/script.js"></script>
 </body>
