@@ -36,7 +36,7 @@ input, select, button {
 
 #channelList {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 channels per row */
+    grid-template-columns: repeat(3, 1fr); /* Always 3 channels per row */
     gap: 20px;
     padding: 20px;
     box-sizing: border-box;
@@ -50,19 +50,22 @@ input, select, button {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     min-height: 150px;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures the content is spread out */
 }
 
 .channel img {
     width: 100%;
-    height: auto;
-    max-width: 100%;
+    height: 100px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensures the image fits inside the box without distortion */
 }
 
 .channel p {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    margin: 0;
 }
 
 .dark-mode .channel {
