@@ -36,12 +36,11 @@ input, select, button {
 
 #channelList {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Ensure 3 columns by default */
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr); /* 3 channels per row */
+    gap: 20px;
     padding: 20px;
     box-sizing: border-box;
     width: 100%;
-    justify-items: center; /* Centers the items horizontally */
 }
 
 .channel {
@@ -50,8 +49,8 @@ input, select, button {
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    min-height: 150px; /* Minimum height for consistency */
-    width: 100%; /* Ensures it fills the available space within grid cell */
+    min-height: 150px;
+    width: 100%;
 }
 
 .channel img {
@@ -74,12 +73,12 @@ input, select, button {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     #channelList {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+        grid-template-columns: repeat(2, 1fr); /* 2 channels per row on medium screens */
     }
 }
 
 @media (max-width: 480px) {
     #channelList {
-        grid-template-columns: 1fr; /* 1 column on very small screens */
+        grid-template-columns: 1fr; /* 1 channel per row on small screens */
     }
 }
