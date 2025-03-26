@@ -34,48 +34,38 @@ input, select, button {
     padding: 8px;
 }
 
-/* Adjusted layout for channel list */
 #channelList {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
-    gap: 20px; /* Space between channels */
 }
 
-/* Modify channel width and height to 100px */
 .channel {
-    width: 100px; /* Set fixed width to 100px */
-    height: 100px; /* Set fixed height to 100px to match the width */
+    width: 30%; /* Set width to 30% */
     background: white;
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    box-sizing: border-box; /* Ensure padding and margin don't affect width calculation */
 }
 
-/* Ensure images fit properly inside the channels */
 .channel img {
-    width: 100%; /* Ensure image fits within 100px width */
-    height: 100%; /* Ensure image fits within 100px height */
-    object-fit: cover; /* Prevent image distortion */
+    width: 100px;
+    height: auto;
 }
 
-/* Dark mode styling */
 .dark-mode .channel {
     background: #444;
     color: #fff;
 }
 
-/* For larger screens (Desktop view) */
+/* For large screens (Desktop view) */
 @media (min-width: 768px) {
     #channelList {
-        justify-content: flex-start; /* Align channels to the left */
+        justify-content: flex-start; /* Align items to the left */
     }
 }
 
@@ -86,7 +76,7 @@ input, select, button {
     }
     
     .channel {
-        width: 100px; /* Ensure channels stay 100px on mobile */
-        height: 100px; /* Ensure channels stay 100px high on mobile */
+        width: 100%; /* On mobile, make channels take full width */
+        max-width: 300px; /* Limit the max width to 300px */
     }
 }
