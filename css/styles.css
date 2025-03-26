@@ -43,9 +43,10 @@ input, select, button {
     gap: 20px; /* Space between channels */
 }
 
-/* Modify channel width to 100px */
+/* Modify channel width and height to 100px */
 .channel {
     width: 100px; /* Set fixed width to 100px */
+    height: 100px; /* Set fixed height to 100px to match the width */
     background: white;
     padding: 10px;
     margin: 10px;
@@ -53,12 +54,16 @@ input, select, button {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Ensure images fit properly inside the channels */
 .channel img {
     width: 100%; /* Ensure image fits within 100px width */
-    height: auto;
+    height: 100%; /* Ensure image fits within 100px height */
+    object-fit: cover; /* Prevent image distortion */
 }
 
 /* Dark mode styling */
@@ -82,5 +87,6 @@ input, select, button {
     
     .channel {
         width: 100px; /* Ensure channels stay 100px on mobile */
+        height: 100px; /* Ensure channels stay 100px high on mobile */
     }
 }
