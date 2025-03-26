@@ -77,6 +77,6 @@ input, select, button {
     
     .channel {
         width: 100%; /* On mobile, make channels take full width */
-        max-width: 300px; /* Limit the max width to 300px */
+        max-width: 30%; /* Limit the max width to 300px */
     }
 }
