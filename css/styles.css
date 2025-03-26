@@ -53,8 +53,8 @@ input, select, button {
 }
 
 .channel img {
-    width: auto;
-    height: 50%;
+    width: 100%;
+    height: auto;
 }
 
 .dark-mode .channel {
