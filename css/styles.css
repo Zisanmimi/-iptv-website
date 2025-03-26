@@ -1,43 +1,95 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
 }
 
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
+h1 {
+    margin-bottom: 20px;
 }
 
-nav ul {
-  list-style-type: none;
-  padding: 0;
+input, select, button {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-nav ul li {
-  display: inline;
-  margin-right: 20px;
+button {
+    cursor: pointer;
+    background: #007bff;
+    color: #fff;
+    border: none;
 }
 
-#hero {
-  background-color: #f4f4f4;
-  text-align: center;
-  padding: 50px 0;
+button:hover {
+    background: #0056b3;
 }
 
-#channels {
-  padding: 20px;
+#channel-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.channel-item {
-  display: inline-block;
-  width: 200px;
-  margin: 10px;
-  text-align: center;
+.channel {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.2s;
 }
 
-.channel-item img {
-  width: 100%;
-  height: auto;
+.channel:hover {
+    transform: scale(1.05);
+}
+
+.channel-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.channel-info h3 {
+    margin: 10px 0;
+}
+
+.channel-info a {
+    display: inline-block;
+    padding: 5px 10px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.channel-info a:hover {
+    background: #218838;
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background: #222;
+    color: #fff;
+}
+
+.dark-mode .channel {
+    background: #333;
+    border: 1px solid #555;
+}
+
+.dark-mode button {
+    background: #f1c40f;
+    color: #333;
+}
+
+.dark-mode button:hover {
+    background: #d4ac0d;
 }
