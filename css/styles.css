@@ -35,55 +35,28 @@ input, select, button {
 }
 
 #channelList {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Always 3 channels per row */
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 20px;
-    box-sizing: border-box;
-    width: 100%;
 }
 
 .channel {
+    width: 300px;
     background: white;
     padding: 10px;
+    margin: 10px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 100%; /* Ensure the channel occupies full width of its grid cell */
-    height: 300px; /* Fixed height to ensure uniformity */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box; /* Prevents content overflow */
 }
 
 .channel img {
-    width: 100%; /* Ensures the image fills the width */
-    height: 150px; /* Fixed height for images */
-    object-fit: cover; /* Ensures the image covers the box without distortion */
-}
-
-.channel p {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    margin: 0;
+    width: 100px;
+    height: auto;
 }
 
 .dark-mode .channel {
     background: #444;
     color: #fff;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #channelList {
-        grid-template-columns: repeat(2, 1fr); /* 2 channels per row on medium screens */
-    }
-}
-
-@media (max-width: 480px) {
-    #channelList {
-        grid-template-columns: 1fr; /* 1 channel per row on small screens */
-    }
 }
