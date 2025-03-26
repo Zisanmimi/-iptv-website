@@ -37,16 +37,15 @@ input, select, button {
 #channelList {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; /* Changed from center to space-between */
+    justify-content: space-between; /* Items evenly spaced */
     padding: 20px;
     gap: 10px;
     box-sizing: border-box;
-    width: 100%; /* Ensure container takes up full width */
-    max-width: 100%; /* Prevent stretching */
+    width: 100%;
 }
 
 .channel {
-    width: calc(33.33% - 20px); /* 3 items per row */
+    width: calc(33.33% - 20px); /* 3 items per row on small screens */
     background: white;
     padding: 10px;
     margin: 10px;
@@ -54,8 +53,7 @@ input, select, button {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     box-sizing: border-box;
-    /* Set a minimum height to prevent empty items collapsing */
-    min-height: 150px;
+    min-height: 150px; /* Ensures items have a minimum height */
 }
 
 .channel img {
@@ -85,5 +83,19 @@ input, select, button {
 @media (max-width: 480px) {
     .channel {
         width: 100%; /* 1 item per row on small screens */
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Display 4 items per row on large screens */
+    .channel {
+        width: calc(25% - 20px);
+    }
+}
+
+@media (min-width: 1200px) {
+    /* Display 5 items per row on extra large screens */
+    .channel {
+        width: calc(20% - 20px);
     }
 }
