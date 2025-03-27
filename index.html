@@ -3,29 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV Channel List</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Live TV Channels</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <img src="assets/images/logo.png" alt="IPTV Logo" class="logo">
-        <h1>IPTV Channel List</h1>
-    </header>
-    
-    <div class="controls">
-        <input type="text" id="searchInput" placeholder="Search channels...">
-        <select id="categoryFilter">
-            <option value="all">All Categories</option>
-            <option value="General">General</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Sports">Sports</option>
-            <option value="News">News</option>
-        </select>
-        <button id="darkModeToggle">Toggle Dark Mode</button>
+    <h1>TV Channel List</h1>
+    <div id="categories">
+        <button onclick="filterChannels('All')">All</button>
+        <button onclick="filterChannels('Entertainment')">Entertainment</button>
+        <button onclick="filterChannels('News')">News</button>
+        <button onclick="filterChannels('Business')">Business</button>
     </div>
-
-    <div id="channelList"></div>
-
-    <script src="js/script.js"></script>
+    <div id="channel-list"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
