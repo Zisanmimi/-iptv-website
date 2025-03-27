@@ -45,54 +45,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function displayChannels() {
-        channelList.innerHTML = "";
-        const searchTerm = searchInput.value.toLowerCase();
-        const selectedCategory = categoryFilter.value;
+    channelList.innerHTML = "";
+    channels.forEach(channel => {
+        const div = document.createElement("div");
+        div.classList.add("channel");
+        div.innerHTML = `
+            <img src="${channel.logo}" alt="${channel.name}">
+            <h3>${channel.name}</h3>
+            <button class="playButton" data-url="${channel.url}">Play</button>
+        `;
+        channelList.appendChild(div);
+    });
 
-        const filteredChannels = channels.filter(channel => 
-            (channel.name.toLowerCase().includes(searchTerm)) &&
-            (selectedCategory === "All" || channel.category === selectedCategory)
-        );
-
-        filteredChannels.forEach(channel => {
-            const div = document.createElement("div");
-            div.classList.add("channel");
-            div.innerHTML = `
-                <img src="${channel.logo}" alt="${channel.name}">
-                <h3>${channel.name}</h3>
-                <button onclick="playStream('${channel.url}')">Play</button>
-            `;
-            channelList.appendChild(div);
+    // Attach event listeners to buttons
+    document.querySelectorAll(".playButton").forEach(button => {
+        button.addEventListener("click", function() {
+            const url = this.getAttribute("data-url");
+            playStream(url);
         });
+    });
     }
 
     window.playStream = (url) => {
-        videoPlayer.classList.remove("hidden");
+    console.log("Opening Stream:", url);
+    const videoFrame = document.getElementById("videoFrame");
+    const videoPlayer = document.getElementById("videoPlayer");
 
-        if (hls) {
-            hls.destroy(); // Destroy any existing Hls.js instance
-        }
+    videoFrame.src = url;  // Set stream URL in iframe
+    videoPlayer.classList.remove("hidden"); // Show player
+};
 
-        if (Hls.isSupported()) {
-            hls = new Hls();
-            hls.loadSource(url);
-            hls.attachMedia(video);
-
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                video.play();
-            });
-
-            hls.on(Hls.Events.ERROR, (event, data) => {
-                console.error("HLS.js error:", data);
-                alert("Stream error! Try another channel.");
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = url;
-            video.play();
-        } else {
-            alert("Your browser does not support this video format.");
-        }
-    };
+// Close button functionality
+document.getElementById("closePlayer").addEventListener("click", () => {
+    document.getElementById("videoPlayer").classList.add("hidden");
+    document.getElementById("videoFrame").src = ""; // Stop the stream
+});
 
     closePlayer.addEventListener("click", () => {
         videoPlayer.classList.add("hidden");
