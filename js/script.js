@@ -61,14 +61,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.playStream = (url) => {
-        videoPlayer.classList.remove("hidden");
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(url);
-            hls.attachMedia(video);
-        } else {
-            video.src = url;
-        }
+    videoPlayer.classList.remove("hidden");
+    
+    if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            video.play();
+        });
+
+        hls.on(Hls.Events.ERROR, (event, data) => {
+            console.error("HLS.js error:", data);
+            alert("Stream error! Try another channel.");
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = url;
+        video.play();
+    } else {
+        alert("Your browser does not support this video format.");
+    }
     };
 
     closePlayer.addEventListener("click", () => {
