@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV Channel List</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPTV Website</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://releases.flowplayer.org/7.2.2/flowplayer.min.js"></script>
 </head>
 <body>
+  <h1>Welcome to IPTV Website</h1>
 
-    <header>
-        <h1>IPTV Channel List</h1>
-        <input type="text" id="search" placeholder="Search channels...">
-        <select id="categoryFilter">
-            <option value="All">All</option>
-            <option value="General">General</option>
-            <option value="Entertainment">Entertainment</option>
-        </select>
-        <button id="toggleTheme">Toggle Dark Mode</button>
-    </header>
+  <div id="player" style="width: 100%; height: 500px;"></div>
 
-    <main id="channelList"></main>
+  <!-- Dropdown to select channels -->
+  <select id="channelSelect" onchange="loadChannel(this.value)">
+    <option value="http://path-to-channel1.m3u8">Channel 1</option>
+    <option value="http://path-to-channel2.m3u8">Channel 2</option>
+    <!-- Add more channels here -->
+  </select>
 
-    <div id="videoPlayer" class="hidden">
-        <iframe id="videoFrame" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>
-        <button id="closePlayer">Close</button>
-    </div>
+  <script>
+    // Initialize the Flowplayer instance
+    function loadChannel(channelUrl) {
+      flowplayer("#player", {
+        clip: {
+          sources: [
+            {
+              type: "application/x-mpegurl",
+              src: channelUrl
+            }
+          ]
+        }
+      });
+    }
 
-    <script src="js/script.js"></script>
+    // Load default channel on page load
+    window.onload = function() {
+      loadChannel('http://path-to-channel1.m3u8');
+    }
+  </script>
 </body>
 </html>
