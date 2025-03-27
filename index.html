@@ -4,81 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Live Streaming</title>
-    <script src="https://releases.flowplayer.org/7.2.2/flowplayer.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        #player {
-            width: 100%;
-            max-width: 800px;
-            height: 450px;
-            margin: 20px auto;
-        }
-        #channelList {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .channel {
-            padding: 10px;
-            margin: 5px;
-            background-color: #f0f0f0;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .channel:hover {
-            background-color: #ddd;
-        }
-    </style>
+    <!-- Include Flowplayer CSS -->
+    <link rel="stylesheet" href="https://cdn.flowplayer.com/7.2.6/skin/skin.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <header>
+        <h1>IPTV Live Streaming</h1>
+    </header>
 
-    <h1>Welcome to IPTV Live Streaming</h1>
+    <div class="container">
+        <div id="flowplayer-container">
+            <!-- Flowplayer video will be embedded here -->
+        </div>
 
-    <!-- Flowplayer container -->
-    <div id="player"></div>
-
-    <!-- Channel List -->
-    <div id="channelList">
-        <!-- Channels will be dynamically added here -->
+        <div class="channel-list" id="channel-list">
+            <!-- List of channels will be populated here -->
+        </div>
     </div>
 
-    <script>
-        // Function to fetch and parse the M3U file
-        async function loadChannels() {
-            const response = await fetch('channels.m3u');
-            const data = await response.text();
-            
-            // Parse M3U file content
-            const channels = [];
-            const lines = data.split('\n');
-            let channelName = '';
-            let channelUrl = '';
-            
-            lines.forEach(line => {
-                // Extract channel name and URL
-                if (line.startsWith('#EXTINF')) {
-                    channelName = line.split(',')[1].trim();
-                } else if (line && !line.startsWith('#')) {
-                    channelUrl = line.trim();
-                    channels.push({ name: channelName, url: channelUrl });
-                }
-            });
-
-            // Display channels
-            const channelList = document.getElementById('channelList');
-            channels.forEach(channel => {
-                const div = document.createElement('div');
-                div.classList.add('channel');
-                div.innerHTML = channel.name;
-                div.onclick = () => loadChannel(channel.url);
-                channelList.appendChild(div);
-            });
-
-            // Load the first channel by default
-            if (channels.length > 0) {
+    <script src="https://cdn.flowplayer.com/7.2.6/flowplayer.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
