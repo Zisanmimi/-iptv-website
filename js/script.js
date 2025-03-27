@@ -10,9 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let channels = [];
 
     async function loadChannels() {
-        const response = await fetch("m3u/channels.m3u");
-        const text = await response.text();
-        parseM3U(text);
+        try {
+            const response = await fetch("m3u/channels.m3u");
+            const text = await response.text();
+            parseM3U(text);
+        } catch (error) {
+            console.error("Failed to load channels:", error);
+            alert("Error loading channel list. Please try again later.");
+        }
     }
 
     function parseM3U(data) {
@@ -61,27 +66,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.playStream = (url) => {
-    videoPlayer.classList.remove("hidden");
-    
-    if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
+        videoPlayer.classList.remove("hidden");
+        
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
 
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                video.play();
+            });
+
+            hls.on(Hls.Events.ERROR, (event, data) => {
+                console.error("HLS.js error:", data);
+                alert("Stream error! Try another channel.");
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
             video.play();
-        });
-
-        hls.on(Hls.Events.ERROR, (event, data) => {
-            console.error("HLS.js error:", data);
-            alert("Stream error! Try another channel.");
-        });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = url;
-        video.play();
-    } else {
-        alert("Your browser does not support this video format.");
-    }
+        } else {
+            alert("Your browser does not support this video format.");
+        }
     };
 
     closePlayer.addEventListener("click", () => {
@@ -96,6 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleTheme.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
     });
-    hls.loadSource(`https://cors-anywhere.herokuapp.com/${url}`);
 
     loadChannels();
+});
