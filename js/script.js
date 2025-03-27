@@ -96,6 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleTheme.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
     });
+    hls.loadSource(`https://cors-anywhere.herokuapp.com/${url}`);
 
     loadChannels();
-});
