@@ -1,6 +1,6 @@
 // Function to fetch and parse M3U playlist
 async function fetchM3UPlaylist() {
-    const m3uFile = 'm3u/channels.m3u'; // Your M3U file URL
+    const m3uFile = 'channels.m3u'; // Your M3U file URL
     const response = await fetch(m3uFile);
     const data = await response.text();
     return parseM3U(data);
@@ -47,6 +47,7 @@ function displayChannelList(channels) {
         viewCount.textContent = `Views: ${channel.views}`;
         channelItem.appendChild(viewCount);
 
+        // Add event listener to play channel on click
         channelItem.addEventListener('click', () => {
             playChannel(channel.url);
             incrementViewCount(channel);
@@ -59,18 +60,27 @@ function displayChannelList(channels) {
 // Function to load and play the selected channel using Flowplayer
 function playChannel(url) {
     const flowplayerContainer = document.getElementById('flowplayer-container');
-    flowplayerContainer.innerHTML = ''; // Clear the previous player
+    
+    // Check if Flowplayer is already loaded, if yes, clear it and reload the player
+    if (flowplayerContainer.innerHTML !== '') {
+        flowplayerContainer.innerHTML = ''; // Clear previous player
+    }
 
-    flowplayer(flowplayerContainer, {
-        clip: {
-            sources: [
-                {
-                    type: 'application/x-mpegurl',
-                    src: url
-                }
-            ]
-        }
-    });
+    try {
+        flowplayer(flowplayerContainer, {
+            clip: {
+                sources: [
+                    {
+                        type: 'application/x-mpegurl',
+                        src: url
+                    }
+                ]
+            }
+        });
+    } catch (error) {
+        console.error("Error initializing Flowplayer:", error);
+        alert("An error occurred while trying to load the stream.");
+    }
 }
 
 // Function to increment the view count for a channel
