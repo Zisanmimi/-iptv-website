@@ -30,7 +30,7 @@ header {
     width: 30%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 }
 
 .channel-item {
@@ -41,6 +41,9 @@ header {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .channel-item:hover {
@@ -49,6 +52,17 @@ header {
 
 .channel-item:active {
     background-color: #777;
+}
+
+.channel-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.channel-item .channel-name {
+    flex: 1;
 }
 
 footer {
