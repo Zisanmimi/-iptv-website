@@ -1,104 +1,64 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const channelList = document.getElementById("channelList");
-    const searchInput = document.getElementById("search");
-    const categoryFilter = document.getElementById("categoryFilter");
-    const videoPlayer = document.getElementById("videoPlayer");
-    const video = document.getElementById("video");
-    const closePlayer = document.getElementById("closePlayer");
-    const toggleTheme = document.getElementById("toggleTheme");
+// Function to fetch and parse M3U playlist
+async function fetchM3UPlaylist() {
+    const m3uFile = 'channels.m3u'; // Your M3U file URL
+    const response = await fetch(m3uFile);
+    const data = await response.text();
+    return parseM3U(data);
+}
 
-    let channels = [];
-    let hls;  // Store Hls.js instance globally
+// Function to parse M3U file content into channel names and URLs
+function parseM3U(data) {
+    const lines = data.split('\n');
+    const channels = [];
 
-    async function loadChannels() {
-        try {
-            const response = await fetch("m3u/channels.m3u");
-            const text = await response.text();
-            parseM3U(text);
-        } catch (error) {
-            console.error("Failed to load channels:", error);
-            alert("Error loading channel list. Please try again later.");
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (line.startsWith('#EXTINF:')) {
+            const channelName = line.split(',')[1].trim();
+            const streamUrl = lines[i + 1].trim();
+            channels.push({ name: channelName, url: streamUrl });
         }
     }
 
-    function parseM3U(data) {
-        const lines = data.split("\n");
-        let currentChannel = {};
+    return channels;
+}
 
-        lines.forEach(line => {
-            if (line.startsWith("#EXTINF")) {
-                const match = line.match(/tvg-logo="(.*?)".*?group-title="(.*?)",(.*)/);
-                if (match) {
-                    currentChannel = {
-                        logo: match[1],
-                        category: match[2],
-                        name: match[3]
-                    };
-                }
-            } else if (line.startsWith("http")) {
-                currentChannel.url = line.trim();
-                channels.push(currentChannel);
-            }
-        });
+// Function to display channel list on the page
+function displayChannelList(channels) {
+    const channelListElement = document.getElementById('channel-list');
+    channelListElement.innerHTML = '';
 
-        displayChannels();
-    }
-
-    function displayChannels() {
-    channelList.innerHTML = "";
     channels.forEach(channel => {
-        const div = document.createElement("div");
-        div.classList.add("channel");
-        div.innerHTML = `
-            <img src="${channel.logo}" alt="${channel.name}">
-            <h3>${channel.name}</h3>
-            <button class="playButton" data-url="${channel.url}">Play</button>
-        `;
-        channelList.appendChild(div);
-    });
+        const channelItem = document.createElement('div');
+        channelItem.classList.add('channel-item');
+        channelItem.textContent = channel.name;
 
-    // Attach event listeners to buttons
-    document.querySelectorAll(".playButton").forEach(button => {
-        button.addEventListener("click", function() {
-            const url = this.getAttribute("data-url");
-            playStream(url);
+        channelItem.addEventListener('click', () => {
+            playChannel(channel.url);
         });
+
+        channelListElement.appendChild(channelItem);
     });
-    }
+}
 
-    window.playStream = (url) => {
-    console.log("Opening Stream:", url);
-    const videoFrame = document.getElementById("videoFrame");
-    const videoPlayer = document.getElementById("videoPlayer");
+// Function to load and play the selected channel using Flowplayer
+function playChannel(url) {
+    const flowplayerContainer = document.getElementById('flowplayer-container');
+    flowplayerContainer.innerHTML = ''; // Clear the previous player
 
-    videoFrame.src = url;  // Set stream URL in iframe
-    videoPlayer.classList.remove("hidden"); // Show player
-};
-
-// Close button functionality
-document.getElementById("closePlayer").addEventListener("click", () => {
-    document.getElementById("videoPlayer").classList.add("hidden");
-    document.getElementById("videoFrame").src = ""; // Stop the stream
-});
-
-    closePlayer.addEventListener("click", () => {
-        videoPlayer.classList.add("hidden");
-        
-        if (hls) {
-            hls.destroy(); // Properly clean up Hls.js
-            hls = null;
+    flowplayer(flowplayerContainer, {
+        clip: {
+            sources: [
+                {
+                    type: 'application/x-mpegurl',
+                    src: url
+                }
+            ]
         }
-        
-        video.pause();
-        video.src = "";
     });
+}
 
-    searchInput.addEventListener("input", displayChannels);
-    categoryFilter.addEventListener("change", displayChannels);
-
-    toggleTheme.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-    });
-
-    loadChannels();
+// Fetch the M3U playlist and display channels
+fetchM3UPlaylist().then(channels => {
+    displayChannelList(channels);
 });
