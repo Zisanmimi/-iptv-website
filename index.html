@@ -5,26 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Channel List</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
+
     <header>
-        <img src="assets/images/logo.png" alt="IPTV Logo" class="logo">
         <h1>IPTV Channel List</h1>
-    </header>
-    
-    <div class="controls">
-        <input type="text" id="searchInput" placeholder="Search channels...">
+        <input type="text" id="search" placeholder="Search channels...">
         <select id="categoryFilter">
-            <option value="all">All Categories</option>
+            <option value="All">All</option>
             <option value="General">General</option>
             <option value="Entertainment">Entertainment</option>
-            <option value="Sports">Sports</option>
-            <option value="News">News</option>
         </select>
-        <button id="darkModeToggle">Toggle Dark Mode</button>
-    </div>
+        <button id="toggleTheme">Toggle Dark Mode</button>
+    </header>
 
-    <div id="channelList"></div>
+    <main id="channelList"></main>
+
+    <div id="videoPlayer" class="hidden">
+        <video id="video" controls></video>
+        <button id="closePlayer">Close</button>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
