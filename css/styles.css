@@ -45,6 +45,7 @@ input, select, button {
     width: 30%; /* Set width to 30% */
     background: white;
     padding: 10px;
+    height: 100px;
     margin: 10px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
