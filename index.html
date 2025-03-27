@@ -1,43 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IPTV Website</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://releases.flowplayer.org/7.2.2/flowplayer.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV Live Streaming</title>
+    <script src="https://releases.flowplayer.org/7.2.2/flowplayer.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #player {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            margin: 20px auto;
+        }
+        #channelList {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .channel {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .channel:hover {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
-  <h1>Welcome to IPTV Website</h1>
 
-  <div id="player" style="width: 100%; height: 500px;"></div>
+    <h1>Welcome to IPTV Live Streaming</h1>
 
-  <!-- Dropdown to select channels -->
-  <select id="channelSelect" onchange="loadChannel(this.value)">
-    <option value="http://path-to-channel1.m3u8">Channel 1</option>
-    <option value="http://path-to-channel2.m3u8">Channel 2</option>
-    <!-- Add more channels here -->
-  </select>
+    <!-- Flowplayer container -->
+    <div id="player"></div>
 
-  <script>
-    // Initialize the Flowplayer instance
-    function loadChannel(channelUrl) {
-      flowplayer("#player", {
-        clip: {
-          sources: [
-            {
-              type: "application/x-mpegurl",
-              src: channelUrl
-            }
-          ]
+    <!-- Channel List -->
+    <div id="channelList">
+        <!-- Channels will be dynamically added here -->
+    </div>
+
+    <script>
+        // Sample M3U data (you can replace this with dynamic loading from a file or database)
+        const channels = [
+            { name: "Channel 1", url: "http://path-to-channel1.m3u8" },
+            { name: "Channel 2", url: "http://path-to-channel2.m3u8" },
+            { name: "Channel 3", url: "http://path-to-channel3.m3u8" },
+            // Add more channels as needed
+        ];
+
+        // Dynamically add channels to the channel list
+        const channelList = document.getElementById('channelList');
+        channels.forEach(channel => {
+            const div = document.createElement('div');
+            div.classList.add('channel');
+            div.innerHTML = channel.name;
+            div.onclick = () => loadChannel(channel.url);
+            channelList.appendChild(div);
+        });
+
+        // Initialize Flowplayer with the first channel or default video
+        function loadChannel(url) {
+            flowplayer("#player", {
+                clip: {
+                    sources: [
+                        {
+                            type: "application/x-mpegurl",
+                            src: url
+                        }
+                    ]
+                }
+            });
         }
-      });
-    }
 
-    // Load default channel on page load
-    window.onload = function() {
-      loadChannel('http://path-to-channel1.m3u8');
-    }
-  </script>
+        // Load the first channel by default when the page loads
+        window.onload = function() {
+            loadChannel(channels[0].url);
+        }
+    </script>
+
 </body>
 </html>
