@@ -1,83 +1,50 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f4f4f4;
-    color: #333;
-    transition: background 0.3s, color 0.3s;
-}
-
-.dark-mode {
-    background: #222;
-    color: #fff;
-}
-
-header {
-    text-align: center;
-    padding: 20px;
-    background: #007bff;
+    background-color: #121212;
     color: white;
+    text-align: center;
 }
 
-.logo {
-    width: 100px;
+#categories {
+    margin-bottom: 20px;
 }
 
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+button {
+    margin: 5px;
     padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
-input, select, button {
-    padding: 8px;
+button:hover {
+    background-color: #555;
 }
 
-#channelList {
+#channel-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 20px;
 }
 
 .channel {
-    width: 30%; /* Set width to 30% */
-    background: white;
-    padding: 10px;
-    height: 100px;
+    width: 200px;
+    background-color: #1e1e1e;
     margin: 10px;
+    padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    box-sizing: border-box; /* Ensure padding and margin don't affect width calculation */
 }
 
 .channel img {
     width: 100%;
-    height: auto;
+    border-radius: 5px;
 }
 
-.dark-mode .channel {
-    background: #444;
-    color: #fff;
-}
-
-/* For large screens (Desktop view) */
-@media (min-width: 768px) {
-    #channelList {
-        justify-content: flex-start; /* Align items to the left */
-    }
-}
-
-/* For small screens (Mobile view) */
-@media (max-width: 768px) {
-    #channelList {
-        justify-content: center; /* Center align items on mobile */
-    }
-    
-    .channel {
-        width: 100%; /* On mobile, make channels take full width */
-        max-width: 40%; /* Limit the max width to 300px */
-    }
+.channel a {
+    color: lightblue;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
 }
