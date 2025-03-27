@@ -1,6 +1,6 @@
 // Function to fetch and parse M3U playlist
 async function fetchM3UPlaylist() {
-    const m3uFile = 'channels.m3u'; // Your M3U file URL
+    const m3uFile = 'm3u/channels.m3u'; // Your M3U file URL
     const response = await fetch(m3uFile);
     const data = await response.text();
     return parseM3U(data);
