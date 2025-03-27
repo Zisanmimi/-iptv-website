@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggleTheme = document.getElementById("toggleTheme");
 
     let channels = [];
+    let hls;  // Store Hls.js instance globally
 
     async function loadChannels() {
         try {
@@ -67,9 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.playStream = (url) => {
         videoPlayer.classList.remove("hidden");
-        
+
+        if (hls) {
+            hls.destroy(); // Destroy any existing Hls.js instance
+        }
+
         if (Hls.isSupported()) {
-            const hls = new Hls();
+            hls = new Hls();
             hls.loadSource(url);
             hls.attachMedia(video);
 
@@ -91,6 +96,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     closePlayer.addEventListener("click", () => {
         videoPlayer.classList.add("hidden");
+        
+        if (hls) {
+            hls.destroy(); // Properly clean up Hls.js
+            hls = null;
+        }
+        
         video.pause();
         video.src = "";
     });
