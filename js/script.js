@@ -1,87 +1,88 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("searchInput");
-    const categoryFilter = document.getElementById("categoryFilter");
-    const darkModeToggle = document.getElementById("darkModeToggle");
+document.addEventListener("DOMContentLoaded", () => {
     const channelList = document.getElementById("channelList");
+    const searchInput = document.getElementById("search");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const videoPlayer = document.getElementById("videoPlayer");
+    const video = document.getElementById("video");
+    const closePlayer = document.getElementById("closePlayer");
+    const toggleTheme = document.getElementById("toggleTheme");
 
     let channels = [];
 
-    // Load M3U File
-    async function loadM3U() {
-        try {
-            const response = await fetch("m3u/channels.m3u");
-            const data = await response.text();
-            parseM3U(data);
-        } catch (error) {
-            console.error("Error loading M3U file", error);
-        }
+    async function loadChannels() {
+        const response = await fetch("m3u/channels.m3u");
+        const text = await response.text();
+        parseM3U(text);
     }
 
-    // Parse M3U Content
-    function parseM3U(m3uText) {
-        const lines = m3uText.split("\n");
+    function parseM3U(data) {
+        const lines = data.split("\n");
         let currentChannel = {};
 
         lines.forEach(line => {
-            line = line.trim();
             if (line.startsWith("#EXTINF")) {
-                const match = line.match(/tvg-id="(.*?)".*?tvg-logo="(.*?)".*?group-title="(.*?)",(.*)/);
+                const match = line.match(/tvg-logo="(.*?)".*?group-title="(.*?)",(.*)/);
                 if (match) {
                     currentChannel = {
-                        id: match[1],
-                        logo: match[2],
-                        category: match[3],
-                        name: match[4],
+                        logo: match[1],
+                        category: match[2],
+                        name: match[3]
                     };
                 }
-            } else if (line && !line.startsWith("#")) {
-                currentChannel.url = line;
+            } else if (line.startsWith("http")) {
+                currentChannel.url = line.trim();
                 channels.push(currentChannel);
             }
         });
 
-        displayChannels(channels);
+        displayChannels();
     }
 
-    // Display Channels
-    function displayChannels(filteredChannels) {
+    function displayChannels() {
         channelList.innerHTML = "";
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedCategory = categoryFilter.value;
+
+        const filteredChannels = channels.filter(channel => 
+            (channel.name.toLowerCase().includes(searchTerm)) &&
+            (selectedCategory === "All" || channel.category === selectedCategory)
+        );
+
         filteredChannels.forEach(channel => {
-            const channelDiv = document.createElement("div");
-            channelDiv.classList.add("channel");
-            channelDiv.innerHTML = `
+            const div = document.createElement("div");
+            div.classList.add("channel");
+            div.innerHTML = `
                 <img src="${channel.logo}" alt="${channel.name}">
                 <h3>${channel.name}</h3>
-                <p>Category: ${channel.category}</p>
-                <a href="${channel.url}" target="_blank">Watch Now</a>
+                <button onclick="playStream('${channel.url}')">Play</button>
             `;
-            channelList.appendChild(channelDiv);
+            channelList.appendChild(div);
         });
     }
 
-    // Search Function
-    searchInput.addEventListener("input", function () {
-        const searchTerm = searchInput.value.toLowerCase();
-        const filtered = channels.filter(channel =>
-            channel.name.toLowerCase().includes(searchTerm)
-        );
-        displayChannels(filtered);
+    window.playStream = (url) => {
+        videoPlayer.classList.remove("hidden");
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
+        } else {
+            video.src = url;
+        }
+    };
+
+    closePlayer.addEventListener("click", () => {
+        videoPlayer.classList.add("hidden");
+        video.pause();
+        video.src = "";
     });
 
-    // Category Filter
-    categoryFilter.addEventListener("change", function () {
-        const selectedCategory = categoryFilter.value;
-        const filtered = selectedCategory === "all"
-            ? channels
-            : channels.filter(channel => channel.category === selectedCategory);
-        displayChannels(filtered);
-    });
+    searchInput.addEventListener("input", displayChannels);
+    categoryFilter.addEventListener("change", displayChannels);
 
-    // Dark Mode Toggle
-    darkModeToggle.addEventListener("click", function () {
+    toggleTheme.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
     });
 
-    // Load Channels
-    loadM3U();
+    loadChannels();
 });
