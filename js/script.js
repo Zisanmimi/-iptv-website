@@ -6,7 +6,7 @@ async function fetchM3UPlaylist() {
     return parseM3U(data);
 }
 
-// Function to parse M3U file content into channel names and URLs
+// Function to parse M3U file content into channel names, URLs, logos, and view counts
 function parseM3U(data) {
     const lines = data.split('\n');
     const channels = [];
@@ -15,8 +15,9 @@ function parseM3U(data) {
         const line = lines[i].trim();
         if (line.startsWith('#EXTINF:')) {
             const channelName = line.split(',')[1].trim();
+            const logoUrl = line.match(/tvg-logo="([^"]+)"/) ? line.match(/tvg-logo="([^"]+)"/)[1] : '';
             const streamUrl = lines[i + 1].trim();
-            channels.push({ name: channelName, url: streamUrl });
+            channels.push({ name: channelName, url: streamUrl, logo: logoUrl, views: 0 });
         }
     }
 
@@ -31,10 +32,24 @@ function displayChannelList(channels) {
     channels.forEach(channel => {
         const channelItem = document.createElement('div');
         channelItem.classList.add('channel-item');
-        channelItem.textContent = channel.name;
+        
+        const logoImg = document.createElement('img');
+        logoImg.src = channel.logo ? channel.logo : 'default-logo.png'; // Use default logo if none provided
+        channelItem.appendChild(logoImg);
+        
+        const channelName = document.createElement('div');
+        channelName.classList.add('channel-name');
+        channelName.textContent = channel.name;
+        channelItem.appendChild(channelName);
+
+        const viewCount = document.createElement('div');
+        viewCount.classList.add('view-count');
+        viewCount.textContent = `Views: ${channel.views}`;
+        channelItem.appendChild(viewCount);
 
         channelItem.addEventListener('click', () => {
             playChannel(channel.url);
+            incrementViewCount(channel);
         });
 
         channelListElement.appendChild(channelItem);
@@ -56,6 +71,12 @@ function playChannel(url) {
             ]
         }
     });
+}
+
+// Function to increment the view count for a channel
+function incrementViewCount(channel) {
+    channel.views += 1;
+    displayChannelList(channels); // Re-render the list with updated view counts
 }
 
 // Fetch the M3U playlist and display channels
