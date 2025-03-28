@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error("No data received from M3U file.");
                 return;
             }
-            
+
+            console.log("M3U File Data:", data); // Debugging: see the M3U content
+
             const lines = data.split("\n");
             const videoUrls = [];
             const videoTitles = [];
@@ -23,6 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Parsing M3U file
             lines.forEach(line => {
+                console.log("Parsing line:", line); // Debugging: see each line being parsed
+
                 if (line.startsWith("http")) {
                     videoUrls.push(line.trim());
                 } else if (line.startsWith("#EXTINF")) {
