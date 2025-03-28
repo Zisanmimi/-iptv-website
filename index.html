@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Channel List</title>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <!-- Flowplayer CSS -->
-    <link rel="stylesheet" href="https://cdn.flowplayer.com/releases/native/3.0.4/style/flowplayer.min.css">
+<link rel="stylesheet" href="https://cdn.flowplayer.com/releases/native/3.3.0/style/flowplayer.css">
+
+<!-- Flowplayer JS -->
+<script src="https://cdn.flowplayer.com/releases/native/3.3.0/flowplayer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
 
@@ -24,14 +27,19 @@
 
     <main id="channelList"></main>
 
-    <div id="videoPlayer" class="hidden">
-        <video id="video" controls></video>
-        <button id="closePlayer">Close</button>
+    <div id="video-container" style="display: none;">
+    <video id="video-player" controls autoplay></video>
+    <button onclick="closePlayer()">Close</button>
     </div>
 
-    <div class="player-container">
-        <video id="player" class="flowplayer" controls></video>
-    </div>
+    <!-- Video Player Modal -->
+<div class="player-container" style="display: none;">
+    <video id="player" class="flowplayer" controls></video>
+    <button id="closePlayer">Close</button>
+</div>
+
+<!-- Play Button Example -->
+<button class="playButton" data-stream="https://example.com/stream.m3u8">Play</button>
 
     <!-- Flowplayer & HLS.js -->
     <script src="https://cdn.flowplayer.com/releases/native/3.0.4/flowplayer.min.js"></script>
