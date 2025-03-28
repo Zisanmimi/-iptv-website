@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV Live Streaming</title>
-    <!-- Include Flowplayer CSS -->
-    <link rel="stylesheet" href="https://cdn.flowplayer.com/7.2.6/skin/skin.css">
-    <link rel="stylesheet" href="css/style.css">
+    <title>IPTV Channel List</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
+
     <header>
-        <h1>IPTV Live Streaming</h1>
+        <h1>IPTV Channel List</h1>
+        <input type="text" id="search" placeholder="Search channels...">
+        <select id="categoryFilter">
+            <option value="All">All</option>
+            <option value="General">General</option>
+            <option value="Entertainment">Entertainment</option>
+        </select>
+        <button id="toggleTheme">Toggle Dark Mode</button>
     </header>
 
-    <div class="container">
-        <div id="flowplayer-container">
-            <!-- Flowplayer video will be embedded here -->
-        </div>
+    <main id="channelList"></main>
 
-        <div class="channel-list" id="channel-list">
-            <!-- List of channels will be populated here -->
-        </div>
+    <div id="videoPlayer" class="hidden">
+        <video id="video" controls></video>
+        <button id="closePlayer">Close</button>
     </div>
 
-    <footer>
-        <p>&copy; 2025 IPTV Streaming. All rights reserved.</p>
-    </footer>
-
-    <script src="https://cdn.flowplayer.com/7.2.6/flowplayer.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
