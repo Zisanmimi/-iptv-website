@@ -3,8 +3,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const videoElement = document.getElementById("iptv-video");
 
     fetch(m3uFile)
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                console.error("Failed to fetch M3U file:", response.status);
+                return;
+            }
+            return response.text();
+        })
         .then(data => {
+            if (!data) {
+                console.error("No data received from M3U file.");
+                return;
+            }
+            
             const lines = data.split("\n");
             const videoUrls = [];
             const videoTitles = [];
@@ -26,6 +37,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
             });
+
+            console.log("Parsed Video URLs:", videoUrls);
+            console.log("Parsed Video Titles:", videoTitles);
+            console.log("Parsed Video Logos:", videoLogos);
 
             // Check if we have URLs to load
             if (videoUrls.length > 0) {
@@ -60,7 +75,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
 
                 document.body.appendChild(playlist);
+            } else {
+                console.error("No valid video URLs found in the M3U file.");
             }
+        })
+        .catch(error => {
+            console.error("Error fetching M3U file:", error);
         });
 
     // Change video function for playlist interaction
