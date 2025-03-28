@@ -86,3 +86,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadChannels();
 });
+document.addEventListener("DOMContentLoaded", function () {
+    function playStream(url) {
+        const video = document.getElementById("player");
+
+        if (Hls.isSupported()) {
+            let hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
+        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+            video.src = url;
+        }
+
+        video.play();
+    }
+
+    document.querySelectorAll(".play-button").forEach(button => {
+        button.addEventListener("click", function () {
+            const streamUrl = this.getAttribute("data-stream");
+            playStream(streamUrl);
+        });
+    });
+});
