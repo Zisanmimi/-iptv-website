@@ -3,44 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV Channel List</title>
+    <title>IPTV Website</title>
+    <!-- Flowplayer CSS -->
+    <link rel="stylesheet" href="https://cdn.flowplayer.org/7.2.5/skin/skin.css">
+    <!-- Your CSS file -->
     <link rel="stylesheet" href="css/styles.css">
-    
-    <!-- Flowplayer & HLS.js -->
-    <link rel="stylesheet" href="https://cdn.flowplayer.com/releases/native/3.0.3/style.css">
-    <script src="https://cdn.flowplayer.com/releases/native/3.0.3/flowplayer.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
 
     <header>
-        <h1>IPTV Channel List</h1>
-        <input type="text" id="search" placeholder="Search channels...">
-        <select id="categoryFilter">
-            <option value="All">All</option>
-            <option value="News">News</option>
-            <option value="Sports">Sports</option>
-            <option value="Entertainment">Entertainment</option>
-        </select>
-        <button id="toggleTheme">Toggle Dark Mode</button>
+        <h1>Welcome to the IPTV Website</h1>
+        <img src="assets/images/logo.png" alt="Logo">
     </header>
 
-    <main id="channelList">
-        <div class="channel">
-            <img src="assets/images/sample-logo.png" alt="Channel Logo">
-            <p>Sample TV (720p)</p>
-            <button class="playButton" data-stream="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">Play</button>
-        </div>
-        
-        <!-- Add more channels dynamically -->
-    </main>
-
-    <!-- Video Player -->
-    <div id="videoPlayerContainer" class="hidden">
-        <video id="player" class="flowplayer" controls></video>
-        <button id="closePlayer">Close</button>
+    <!-- Video Player Section -->
+    <div id="video-player" class="flowplayer">
+        <video id="iptv-video" data-ratio="0.5625">
+            <!-- Video source will be updated dynamically -->
+        </video>
     </div>
 
+    <!-- Flowplayer JS -->
+    <script src="https://cdn.flowplayer.org/7.2.5/flowplayer.min.js"></script>
+    <!-- Your JS file -->
     <script src="js/script.js"></script>
 
 </body>
