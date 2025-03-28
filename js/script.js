@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Parsing M3U file
             lines.forEach(line => {
-                if (line.startsWith("https")) {
+                if (line.startsWith("http")) {
                     videoUrls.push(line.trim());
                 } else if (line.startsWith("#EXTINF")) {
                     const titleMatch = line.match(/,([^,]+)$/);
