@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Channel List</title>
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Flowplayer CSS -->
-<link rel="stylesheet" href="https://cdn.flowplayer.com/releases/native/3.3.0/style/flowplayer.css">
-
-<!-- Flowplayer JS -->
-<script src="https://cdn.flowplayer.com/releases/native/3.3.0/flowplayer.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
+    <!-- Flowplayer & HLS.js -->
+    <link rel="stylesheet" href="https://cdn.flowplayer.com/releases/native/3.0.3/style.css">
+    <script src="https://cdn.flowplayer.com/releases/native/3.0.3/flowplayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
 
@@ -19,32 +18,30 @@
         <input type="text" id="search" placeholder="Search channels...">
         <select id="categoryFilter">
             <option value="All">All</option>
-            <option value="General">General</option>
+            <option value="News">News</option>
+            <option value="Sports">Sports</option>
             <option value="Entertainment">Entertainment</option>
         </select>
         <button id="toggleTheme">Toggle Dark Mode</button>
     </header>
 
-    <main id="channelList"></main>
+    <main id="channelList">
+        <div class="channel">
+            <img src="assets/images/sample-logo.png" alt="Channel Logo">
+            <p>Sample TV (720p)</p>
+            <button class="playButton" data-stream="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">Play</button>
+        </div>
+        
+        <!-- Add more channels dynamically -->
+    </main>
 
-    <div id="video-container" style="display: none;">
-    <video id="video-player" controls autoplay></video>
-    <button onclick="closePlayer()">Close</button>
+    <!-- Video Player -->
+    <div id="videoPlayerContainer" class="hidden">
+        <video id="player" class="flowplayer" controls></video>
+        <button id="closePlayer">Close</button>
     </div>
 
-    <!-- Video Player Modal -->
-<div class="player-container" style="display: none;">
-    <video id="player" class="flowplayer" controls></video>
-    <button id="closePlayer">Close</button>
-</div>
-
-<!-- Play Button Example -->
-<button class="playButton" data-stream="https://example.com/stream.m3u8">Play</button>
-
-    <!-- Flowplayer & HLS.js -->
-    <script src="https://cdn.flowplayer.com/releases/native/3.0.4/flowplayer.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script src="/js/script.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>
