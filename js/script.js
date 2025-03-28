@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const lines = data.split("\n");
             const videoUrls = [];
             const videoTitles = [];
+            const videoLogos = [];
 
             // Parsing M3U file
             lines.forEach(line => {
@@ -15,8 +16,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     videoUrls.push(line.trim());
                 } else if (line.startsWith("#EXTINF")) {
                     const titleMatch = line.match(/,([^,]+)$/);
+                    const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+
                     if (titleMatch) {
                         videoTitles.push(titleMatch[1].trim());
+                    }
+                    if (logoMatch) {
+                        videoLogos.push(logoMatch[1].trim());
                     }
                 }
             });
@@ -44,28 +50,31 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 });
 
-                // Optionally, you can create a playlist UI
+                // Optionally, create a playlist UI with logos and titles
                 const playlist = document.createElement("ul");
                 videoTitles.forEach((title, index) => {
                     const listItem = document.createElement("li");
-                    listItem.textContent = title;
-                    listItem.style.cursor = "pointer";
-                    listItem.addEventListener("click", () => {
-                        videoElement.innerHTML = `<source src="${videoUrls[index]}" type="video/mp4">`;
-                        flowplayer("#video-player", {
-                            clip: {
-                                sources: [
-                                    { type: "video/mp4", src: videoUrls[index] }
-                                ]
-                            }
-                        });
-                    });
+                    const logo = videoLogos[index] ? `<img src="${videoLogos[index]}" alt="${title}" width="30" height="30">` : "";
+                    listItem.innerHTML = `<a href="#" onclick="changeVideo(${index})">${logo} ${title}</a>`;
                     playlist.appendChild(listItem);
                 });
+
                 document.body.appendChild(playlist);
             }
-        })
-        .catch(error => {
-            console.error("Error loading M3U file:", error);
         });
+
+    // Change video function for playlist interaction
+    function changeVideo(index) {
+        const videoElement = document.getElementById("iptv-video");
+        videoElement.innerHTML = `<source src="${videoUrls[index]}" type="video/mp4">`;
+
+        flowplayer("#video-player", {
+            clip: {
+                sources: [
+                    { type: "video/mp4", src: videoUrls[index] }
+                ],
+                autoPlay: true
+            }
+        });
+    }
 });
