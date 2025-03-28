@@ -6,6 +6,8 @@
     <title>IPTV Channel List</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- Flowplayer CSS -->
+    <link rel="stylesheet" href="https://cdn.flowplayer.com/releases/native/3.0.4/style/flowplayer.min.css">
 </head>
 <body>
 
@@ -27,6 +29,14 @@
         <button id="closePlayer">Close</button>
     </div>
 
-    <script src="js/script.js"></script>
+    <div class="player-container">
+        <video id="player" class="flowplayer" controls></video>
+    </div>
+
+    <!-- Flowplayer & HLS.js -->
+    <script src="https://cdn.flowplayer.com/releases/native/3.0.4/flowplayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="/js/script.js"></script>
+
 </body>
 </html>
