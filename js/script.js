@@ -1,104 +1,132 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const m3uFile = "m3u/channels.m3u"; // Path to the M3U file
-    const videoElement = document.getElementById("iptv-video");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV Channels</title>
+    <style>
+        .channel-list {
+            list-style-type: none;
+            padding: 0;
+        }
 
-    fetch(m3uFile)
-        .then(response => {
-            if (!response.ok) {
-                console.error("Failed to fetch M3U file:", response.status);
-                return;
-            }
-            return response.text();
-        })
-        .then(data => {
-            if (!data) {
-                console.error("No data received from M3U file.");
-                return;
-            }
+        .channel-list li {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
 
-            console.log("M3U File Data:", data); // Log the M3U content
+        .channel-list img {
+            margin-right: 10px;
+        }
 
-            const lines = data.split("\n");
-            const videoUrls = [];
-            const videoTitles = [];
-            const videoLogos = [];
+        .channel-list a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+        }
 
-            // Parsing M3U file
-            lines.forEach(line => {
-                console.log("Parsing line:", line); // Log each line
+        .channel-list a:hover {
+            color: #007bff;
+        }
 
-                if (line.startsWith("http")) {
-                    videoUrls.push(line.trim());
-                } else if (line.startsWith("#EXTINF")) {
-                    const titleMatch = line.match(/,([^,]+)$/);
-                    const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+        .flowplayer-container {
+            margin-top: 20px;
+            text-align: center;
+        }
 
-                    if (titleMatch) {
-                        videoTitles.push(titleMatch[1].trim());
-                    }
-                    if (logoMatch) {
-                        videoLogos.push(logoMatch[1].trim());
-                    }
-                }
-            });
+        iframe {
+            width: 100%;
+            height: 480px;
+            border: none;
+        }
+    </style>
+    <!-- Flowplayer CSS -->
+    <link rel="stylesheet" href="https://cdn.flowplayer.com/flowplayer.min.css">
 
-            console.log("Parsed Video URLs:", videoUrls);
-            console.log("Parsed Video Titles:", videoTitles);
-            console.log("Parsed Video Logos:", videoLogos);
+    <!-- Flowplayer JS -->
+    <script src="https://cdn.flowplayer.com/flowplayer.min.js"></script>
+</head>
+<body>
 
-            // Check if we have URLs to load
-            if (videoUrls.length > 0) {
-                // Set the first video URL as the source
-                videoElement.innerHTML = `<source src="${videoUrls[0]}" type="video/mp4">`;
+    <h2>IPTV Channels</h2>
+    <ul id="channel-list" class="channel-list"></ul>
 
-                // Initialize Flowplayer with the dynamic source
-                flowplayer("#video-player", {
-                    clip: {
-                        sources: [
-                            { type: "video/mp4", src: videoUrls[0] }
-                        ],
-                        autoPlay: true, // Auto play on load
-                        autoBuffering: true // Enable buffering
-                    },
-                    plugins: {
-                        controls: {
-                            fullscreen: true,
-                            mute: true,
-                            volume: true
+    <!-- Container for the Flowplayer -->
+    <div id="flowplayer-container" class="flowplayer-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const m3uFile = "m3u/channels.m3u"; // Path to the M3U file
+
+            fetch(m3uFile)
+                .then(response => response.text())
+                .then(data => {
+                    const lines = data.split("\n");
+                    const channels = [];
+                    let currentChannel = {};
+
+                    // Parsing M3U file to extract channel details
+                    lines.forEach(line => {
+                        if (line.startsWith("#EXTINF")) {
+                            // Extract channel title
+                            const titleMatch = line.match(/,([^,]+)$/);
+                            if (titleMatch) {
+                                currentChannel.title = titleMatch[1].trim();
+                            }
+
+                            // Extract logo URL
+                            const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                            if (logoMatch) {
+                                currentChannel.logo = logoMatch[1].trim();
+                            }
                         }
-                    }
-                });
 
-                // Optionally, create a playlist UI with logos and titles
-                const playlist = document.createElement("ul");
-                videoTitles.forEach((title, index) => {
-                    const listItem = document.createElement("li");
-                    const logo = videoLogos[index] ? `<img src="${videoLogos[index]}" alt="${title}" width="30" height="30">` : "";
-                    listItem.innerHTML = `<a href="#" onclick="changeVideo(${index})">${logo} ${title}</a>`;
-                    playlist.appendChild(listItem);
-                });
+                        // Check for video URL
+                        if (line.startsWith("http")) {
+                            currentChannel.url = line.trim();
+                            channels.push(currentChannel);
+                            currentChannel = {};  // Reset current channel after adding it
+                        }
+                    });
 
-                document.body.appendChild(playlist);
-            } else {
-                console.error("No valid video URLs found in the M3U file.");
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching M3U file:", error);
+                    // Display the list of channels
+                    const channelListElement = document.getElementById("channel-list");
+
+                    channels.forEach(channel => {
+                        const listItem = document.createElement("li");
+
+                        // Create the channel list item
+                        const logoImg = channel.logo ? `<img src="${channel.logo}" alt="${channel.title}" width="30" height="30">` : '';
+                        listItem.innerHTML = `
+                            ${logoImg}
+                            <a href="#" onclick="openFlowplayer('${channel.url}')">${channel.title}</a>
+                        `;
+
+                        // Append the channel to the list
+                        channelListElement.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error("Error fetching M3U file:", error));
         });
 
-    // Change video function for playlist interaction
-    function changeVideo(index) {
-        const videoElement = document.getElementById("iptv-video");
-        videoElement.innerHTML = `<source src="${videoUrls[index]}" type="video/mp4">`;
+        function openFlowplayer(url) {
+            const flowplayerContainer = document.getElementById("flowplayer-container");
+            
+            // Clear any previous content in the player container
+            flowplayerContainer.innerHTML = "";
 
-        flowplayer("#video-player", {
-            clip: {
-                sources: [
-                    { type: "video/mp4", src: videoUrls[index] }
-                ],
-                autoPlay: true
-            }
-        });
-    }
-});
+            // Create Flowplayer iframe dynamically
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://embed.flowplayer.com/?stream=${url}`;
+            iframe.allowFullscreen = true;
+
+            // Append the iframe to the container
+            flowplayerContainer.appendChild(iframe);
+        }
+    </script>
+  
+</body>
+</html>
