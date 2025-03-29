@@ -37,7 +37,7 @@ header h1 {
     background-color: #333;
     border: 1px solid #ddd;
     color: #fff;
-    display: ;
+    display: flex;
     cursor: pointer;
     
     text-align: center;
