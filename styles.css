@@ -39,7 +39,7 @@ header h1 {
     color: #fff;
     display: flex;
     cursor: pointer;
-    
+    align-item: center;
     text-align: center;
 }
 
