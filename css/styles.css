@@ -1,3 +1,4 @@
+/* Basic styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #1a1a1a;
@@ -12,27 +13,47 @@ header {
     background-color: #333;
 }
 
-h1 {
+header h1 {
     margin: 0;
 }
 
-#video-player {
-    margin: 20px auto;
-    width: 80%;
-}
-
-footer {
-    text-align: center;
+#channel-container {
     padding: 20px;
-    background-color: #333;
+    text-align: center;
 }
 
-ul {
+#channel-list {
     list-style-type: none;
     padding: 0;
 }
 
-ul li {
-    margin: 10px 0;
+#channel-list li {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+#channel-list img {
+    margin-right: 10px;
+}
+
+#channel-list a {
+    text-decoration: none;
     color: #fff;
+    font-size: 18px;
+}
+
+#channel-list a:hover {
+    color: #007bff;
+}
+
+.streaming-player-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+iframe {
+    border: none;
 }
