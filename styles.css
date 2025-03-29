@@ -38,7 +38,7 @@ header h1 {
     border: 1px solid #ddd;
     color: #fff;
     width: 100px;
-    display: block;
+    display: inline-block;
     cursor: pointer;
     align-item: center;
     justify-content: center;
