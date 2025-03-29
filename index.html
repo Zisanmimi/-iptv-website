@@ -4,62 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Channels</title>
-    <style>
-        .channel-list {
-            list-style-type: none;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="css/styles.css">  <!-- Link to external CSS -->
 
-        .channel-list li {
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-        }
-
-        .channel-list img {
-            margin-right: 10px;
-        }
-
-        .channel-list a {
-            text-decoration: none;
-            color: black;
-            font-size: 18px;
-        }
-
-        .channel-list a:hover {
-            color: #007bff;
-        }
-
-        .flowplayer-container {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        iframe {
-            width: 100%;
-            height: 480px;
-            border: none;
-        }
-    </style>
     <!-- Flowplayer CSS -->
-    <link rel="stylesheet" href="https://cdn.flowplayer.com/flowplayer.min.css">
+    <link rel="stylesheet" href="https://cdn.flowplayer.com/releases/native/3.0.0/style/flowplayer.min.css">
+    
+    <script src="https://cdn.flowplayer.com/releases/native/3.0.0/flowplayer.min.js"></script>
 
-    <!-- Flowplayer JS -->
-    <script src="https://cdn.flowplayer.com/flowplayer.min.js"></script>
-    <script src="https://cdn.flowplayer.com/flowplayer.hlsjs.min.js"></script>
 </head>
 <body>
 
-    <h2>IPTV Channels</h2>
+    <header>
+        <h1>IPTV Channels</h1>
+    </header>
+
     <ul id="channel-list" class="channel-list"></ul>
 
-    <!-- Container for the Flowplayer -->
-    <div id="flowplayer-container" class="flowplayer-container"></div>
+    <!-- Video Player Section -->
+    <div id="flowplayer-container">
+        <video id="video-player" controls></video>
+    </div>
 
-    <!-- JavaScript File Link -->
-    <script src="js/script.js"></script>  <!-- This is the external JS file you should create and save as 'iptv.js' -->
-
+    <script src="js/iptv.js"></script>  <!-- Make sure this matches your JS file -->
+    
 </body>
 </html>
