@@ -30,7 +30,7 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Display 3 items per row */
     
-    justify-content: space between;
+    justify-content: space-between;
 }
 
 #channel-list li {
