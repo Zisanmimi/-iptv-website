@@ -53,18 +53,38 @@ header h1 {
 .streaming-player-container {
     margin-top: 20px;
     text-align: center;
-    position: fixed; /* Fixed position to always keep it on top */
-    top: 0;  /* Position it at the top of the viewport */
+    position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;  /* Ensure it's always above other content */
-    background-color: #000; /* Optional background color to make it stand out */
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Styling the iframe */
 iframe {
     border: none;
-    width: 100%;
-    height: 480px;
-    max-height: 90vh;  /* Limit the height to 90% of the viewport */
+    width: 80%;
+    height: 80vh;
+    max-height: 90vh;
+}
+
+/* Close and Popup buttons */
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
