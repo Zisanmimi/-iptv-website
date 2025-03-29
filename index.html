@@ -4,29 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Channels</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <header>
-        <h1>IPTV Channels</h1>
-    </header>
-
-    <div id="channel-container">
-        <h2>Choose a Channel</h2>
-        <ul id="channel-list">
-            <!-- List of channels will be inserted here -->
-        </ul>
+    <h2>IPTV Channels</h2>
+    <div id="channel-container" class="channel-container">
+        <ul id="channel-list" class="channel-list"></ul>
     </div>
 
-    <!-- Container for the streaming player -->
-    <div id="streaming-player-container" class="streaming-player-container">
-        <button id="close-btn">Close</button>
-        <iframe id="streaming-iframe" allowfullscreen></iframe>
-    </div>
-
-    <!-- Link to external JavaScript file -->
-    <script src="iptv.js"></script>
-
+    <script src="js/script.js"></script>  <!-- External JS file -->
 </body>
 </html>
