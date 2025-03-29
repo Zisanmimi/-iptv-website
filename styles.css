@@ -36,9 +36,9 @@ header h1 {
     padding: 10px;
     background-color: #333;
     border: 1px solid #ddd;
-    
     color: #fff;
     cursor: pointer;
+    align-item: center;
     text-align: center;
 }
 
@@ -48,8 +48,7 @@ header h1 {
 
 #channel-list img {
     align-item: center;
-    width: 100%;
-    height: auto;
+
 }
 
 #channel-list a {
