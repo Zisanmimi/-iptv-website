@@ -48,6 +48,7 @@ header h1 {
 
 #channel-list img {
     text-align: center;
+    width: 100%;
 }
 
 #channel-list a {
