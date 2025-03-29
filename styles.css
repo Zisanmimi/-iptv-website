@@ -40,6 +40,7 @@ header h1 {
     display: flex;
     cursor: pointer;
     align-item: center;
+    justify-content: center;
     text-align: center;
 }
 
