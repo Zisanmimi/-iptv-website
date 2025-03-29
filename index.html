@@ -5,28 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Channels</title>
     <link rel="stylesheet" href="css/styles.css">  <!-- Link to external CSS -->
-
-    <!-- Flowplayer CSS -->
-    <link rel="stylesheet" href="https://cdn.flowplayer.com/releases/native/3.0.0/style/flowplayer.min.css">
-    
-    <script src="https://cdn.flowplayer.com/releases/native/3.0.0/flowplayer.min.js"></script>
-
 </head>
 <body>
 
     <header>
-        <h1>IPTV Channels</h1>
+        <h1>IPTV Streaming</h1>
     </header>
 
-    <ul id="channel-list" class="channel-list"></ul>
-
-    <!-- Video Player Section -->
-    <div id="flowplayer-container">
-        <video id="video-player" controls></video>
+    <div id="channel-container">
+        <h2>Available Channels</h2>
+        <ul id="channel-list" class="channel-list"></ul>
     </div>
-    <button onclick="window.open('https://mcaster.tv/channel/wrong.php', '_blank')">Open Stream in New Window</button>
 
-    <script src="js/script.js"></script>  <!-- Make sure this matches your JS file -->
-    
+    <div id="streaming-player-container" class="streaming-player-container">
+        <iframe id="streaming-player" width="100%" height="480px" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <footer>
+        <p>IPTV Service - Powered by Custom Player</p>
+    </footer>
+
+    <script src="js/script.js"></script> <!-- Link to external JS -->
 </body>
 </html>
