@@ -25,7 +25,7 @@ header h1 {
 }
 
 #channel-list {
-    list-style-type: none;
+    list-style-type: square;
     padding: 0;
 }
 
