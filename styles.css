@@ -27,7 +27,7 @@ header h1 {
 #channel-list {
     list-style-type: none;
     padding: 0;
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(3, 1fr); /* Display 3 items per row */
     gap: 20px; /* Space between items */
 }
