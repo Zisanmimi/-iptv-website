@@ -1,7 +1,6 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const m3uFile = "m3u/channels.m3u"; // Path to the M3U file
 
-    // Fetch M3U file
     fetch(m3uFile)
         .then(response => response.text())
         .then(data => {
@@ -56,5 +55,31 @@ document.addEventListener("DOMContentLoaded", function() {
 // Function to open stream in iframe
 function openStream(url) {
     const iframe = document.getElementById("streaming-player");
-    iframe.src = url; // Set the iframe source to the selected stream URL
+
+    // Set the iframe source to the selected channel URL
+    iframe.src = url;
+
+    // Show the iframe container
+    document.getElementById("streaming-player-container").style.display = "flex";
+}
+
+// Function to close the stream (hide the iframe)
+function closeStream() {
+    const iframe = document.getElementById("streaming-player");
+
+    // Clear iframe src to stop the stream
+    iframe.src = "";
+
+    // Hide the iframe container
+    document.getElementById("streaming-player-container").style.display = "none";
+}
+
+// Function to open the stream in a new pop-up window
+function openInPopup() {
+    const iframe = document.getElementById("streaming-player");
+    const url = iframe.src;
+
+    if (url) {
+        window.open(url, "StreamPopup", "width=800,height=600,scrollbars=yes");
+    }
 }
