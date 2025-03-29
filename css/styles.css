@@ -49,11 +49,22 @@ header h1 {
     color: #007bff;
 }
 
+/* Ensure iframe container always remains at the top */
 .streaming-player-container {
     margin-top: 20px;
     text-align: center;
+    position: fixed; /* Fixed position to always keep it on top */
+    top: 0;  /* Position it at the top of the viewport */
+    left: 0;
+    width: 100%;
+    z-index: 1000;  /* Ensure it's always above other content */
+    background-color: #000; /* Optional background color to make it stand out */
 }
 
+/* Styling the iframe */
 iframe {
     border: none;
+    width: 100%;
+    height: 480px;
+    max-height: 90vh;  /* Limit the height to 90% of the viewport */
 }
