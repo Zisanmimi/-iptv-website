@@ -73,13 +73,3 @@ function closeStream() {
     // Hide the iframe container
     document.getElementById("streaming-player-container").style.display = "none";
 }
-
-// Function to open the stream in a new pop-up window
-function openInPopup() {
-    const iframe = document.getElementById("streaming-player");
-    const url = iframe.src;
-
-    if (url) {
-        window.open(url, "StreamPopup", "width=800,height=600,scrollbars=yes");
-    }
-}
