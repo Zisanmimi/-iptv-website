@@ -39,6 +39,7 @@ header h1 {
     color: #fff;
     display: block;
     cursor: pointer;
+    justify-content: center;
     align-item: center;
     text-align: center;
 }
