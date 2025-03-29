@@ -62,7 +62,7 @@ function openFlowplayer(url) {
 
     // Create Flowplayer iframe dynamically
     const iframe = document.createElement('iframe');
-    iframe.src = `https://embed.flowplayer.com/?stream=${url}`;
+    iframe.src = `https://cdn.flowplayer.com/flowplayer.hlsjs.min.js?stream=${url}`;
     iframe.allowFullscreen = true;
 
     // Append the iframe to the container
