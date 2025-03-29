@@ -37,10 +37,9 @@ header h1 {
     background-color: #333;
     border: 1px solid #ddd;
     color: #fff;
-    display: inline-block;
+    display: ;
     cursor: pointer;
-    justify-content: center;
-    align-item: center;
+    
     text-align: center;
 }
 
@@ -49,8 +48,7 @@ header h1 {
 }
 
 #channel-list img {
-    align-item: center;
-    justify-content: center;
+    
 
 }
 
